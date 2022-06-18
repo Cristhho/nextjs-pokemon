@@ -7,7 +7,7 @@ import { Layout } from '../../components/layout';
 
 import { pokeApi } from '../../api';
 import { Pokemon, PokemonListResponse } from '../../interfaces';
-import { localFavorites } from '../../utils';
+import { getPokemonInfo, localFavorites } from '../../utils';
 
 interface PokemonNamePageProps {
   pokemon: Pokemon
@@ -111,10 +111,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { name } = params as { name: string };
-  const { data } = await pokeApi.get<Pokemon>(`/pokemon/${name}`);
+
   return {
     props: {
-      pokemon: data
+      pokemon: await getPokemonInfo(name)
     }
   }
 }
