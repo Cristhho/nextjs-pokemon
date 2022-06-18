@@ -5,14 +5,19 @@ import { Layout } from '../../components/layout';
 
 import { pokeApi } from '../../api';
 import { Pokemon } from '../../interfaces';
+import { localFavorites } from '../../utils';
 
 interface PokemonPageProps {
   pokemon: Pokemon
 }
 
 const PokemonPage: NextPage<PokemonPageProps> = ({ pokemon }) => {
+
+  const onToggleFavorite = () => {
+    localFavorites.toggleFavorite(`${pokemon.id}`);
+  }
   return (
-    <Layout>
+    <Layout title={pokemon.name}>
       <Grid.Container css={{ marginTop: '5px' }} gap={2}>
         <Grid xs={12} sm={4}>
           <Card hoverable css={{ padding: '30px' }}>
@@ -30,7 +35,13 @@ const PokemonPage: NextPage<PokemonPageProps> = ({ pokemon }) => {
           <Card>
             <Card.Header css={{display: 'flex', justifyContent: 'space-between'}}>
               <Text h1 transform='capitalize'>{pokemon.name}</Text>
-              <Button color='gradient' ghost>Guardar en favoritos</Button>
+              <Button
+                color='gradient'
+                ghost
+                onClick={onToggleFavorite}
+              >
+                Guardar en favoritos
+              </Button>
             </Card.Header>
             <Card.Body>
               <Text size={30}>Sprites:</Text>
