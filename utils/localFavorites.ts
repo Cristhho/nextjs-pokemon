@@ -15,11 +15,16 @@ const existInFavorites = (id: string): boolean => {
   const favorites: string[] = JSON.parse(localStorage.getItem('favorites') || '[]');
 
   return favorites.includes(id);
+};
+
+const favorites = (): string[] => {
+  return JSON.parse(localStorage.getItem('favorites') || '[]');
 }
 
 const _export = {
   toggleFavorite,
-  existInFavorites
+  existInFavorites,
+  favorites
 };
 
 export default _export;
