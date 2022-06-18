@@ -10,8 +10,16 @@ const toggleFavorite = (id: string) => {
   localStorage.setItem('favorites', JSON.stringify(favorites));
 };
 
+const existInFavorites = (id: string): boolean => {
+  if (typeof window === 'undefined') return false;
+  const favorites: string[] = JSON.parse(localStorage.getItem('favorites') || '[]');
+
+  return favorites.includes(id);
+}
+
 const _export = {
-  toggleFavorite
+  toggleFavorite,
+  existInFavorites
 };
 
 export default _export;
